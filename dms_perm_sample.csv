@@ -1,0 +1,3 @@
+BU,Email,Role,TargetFolder,Permission,FolderServerRelativeUrl,Note
+COMPA-DEPT1,personA@companyA.com,BLD PBDV,COMPA/DEPT1,Edit,/sites/ExampleSite/lib01/CompanyA/DEPT1,Phân quyền đợt 1
+COMPB-DEPT2,personB@companyB.com,PIC PBDV,COMPB/DEPT1,Edit,/sites/ExampleSite/lib01/CompanyB/DEPT2,Phân quyền đợt 1

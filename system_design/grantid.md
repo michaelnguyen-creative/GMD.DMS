@@ -1,4 +1,4 @@
-# Grant ID Determination Logic & Design Specifications
+# Grant ID Design Specifications
 
 ## Overview
 The Grant ID system groups permission requests into logical batches based on temporal proximity, enabling efficient processing while maintaining traceability and supporting complex relationship patterns.

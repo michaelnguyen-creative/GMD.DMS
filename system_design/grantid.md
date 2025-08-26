@@ -33,16 +33,34 @@ YYYYMMDD-HHmm
 
 ### Scoped Format
 ```
-<SYSTEM>-YYYYMMDD-HHmm
+<SYSTEM>-<ACTION>-YYYYMMDD-HHmm-<USER>-<SEQ>
 ```
 
 **Additional Components:**
-- `<SYSTEM>`: System identifier (i.e., DMS)
+- `<SYSTEM>`: System identifier (i.e., `DMS`)
+- `<ACTION>: Action identifer (i.e., `GRANT`)
+- `<USER>`: User identifer (i.e., email = "abc@company.com", USER = "ABC")
+- `<SEQ>`: Grant identier in the same time window (GrantId)
 
 **Examples:**
-- `DMS-20250826-1420`
+- `DMS-GRANT-20250826-1420-ABC-01`
 
 ### Time Window Determination
+
+```
+5-MINUTE WINDOW LOGIC:
+- Rounds time down to nearest 5-minute interval
+- Examples: 16:07->1605, 16:10->1610, 16:12->1610, 16:15->1615
+- Prevents collision for requests within same 5-minute window
+- Each user gets sequence number within their window
+```
+
+```
+SEQUENCE NUMBERING:
+- Filters existing GrantIDs matching same date+window+user
+- Adds 1 to count for next sequence number
+- Uses padLeft for consistent 2-digit format (01, 02, etc.)
+```
 
 #### Option 1: Fixed Interval Rounding (Recommended/Chosen)
 ```

@@ -48,12 +48,24 @@ YYYYMMDD-HHmm
 ### Time Window Determination
 
 ```
-5-MINUTE WINDOW LOGIC:
-- Rounds time down to nearest 5-minute interval
-- Examples: 16:07->1605, 16:10->1610, 16:12->1610, 16:15->1615
+30-MINUTE WINDOW LOGIC:
+- Rounds time down to nearest 30-minute interval
+- Examples: 16:07->1600, 16:10->1600, 16:32->1630, 16:15->1615
 - Prevents collision for requests within same 5-minute window
 - Each user gets sequence number within their window
 ```
+
+## **30-Minute Window Examples:**
+
+| Real Time | Minutes | Calculation | 30-Min Window | Result |
+|-----------|---------|-------------|---------------|---------|
+| 14:07 | 07 | 07÷30=0 → 0×30=00 | 1400 | `DMS-GRANT-20250826-1400-john-01` |
+| 14:15 | 15 | 15÷30=0 → 0×30=00 | 1400 | `DMS-GRANT-20250826-1400-mary-01` |
+| 14:29 | 29 | 29÷30=0 → 0×30=00 | 1400 | `DMS-GRANT-20250826-1400-admin-01` |
+| 14:30 | 30 | 30÷30=1 → 1×30=30 | 1430 | `DMS-GRANT-20250826-1430-john-01` |
+| 14:45 | 45 | 45÷30=1 → 1×30=30 | 1430 | `DMS-GRANT-20250826-1430-mary-01` |
+| 14:59 | 59 | 59÷30=1 → 1×30=30 | 1430 | `DMS-GRANT-20250826-1430-admin-01` |
+| 15:00 | 00 | 00÷30=0 → 0×30=00 | 1500 | `DMS-GRANT-20250826-1500-john-01` |
 
 ```
 SEQUENCE NUMBERING:
@@ -113,6 +125,7 @@ Decision Rationale:
 | 5 minutes | Balanced grouping | Good for most scenarios | **Recommended default** |
 | 15 minutes | Larger batches | May group unrelated requests | Bulk processing scenarios |
 | 30 minutes | Very large batches | Poor granularity | Legacy system migration |
+
 
 **Recommendation: 5 minutes**
 - Optimal balance between grouping efficiency and precision
